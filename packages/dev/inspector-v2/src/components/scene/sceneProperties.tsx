@@ -223,10 +223,6 @@ export const SceneRenderingProperties: FunctionComponent<{ scene: Scene; selecti
     const envTexture = useProperty(scene, "environmentTexture");
     const fogMode = useProperty(scene, "fogMode");
 
-    const skyBoxMesh = scene.getMeshById("hdrSkyBox");
-    const skyBoxVisible = skyBoxMesh?.isVisible || false;
-    const skyBoxEnable = skyBoxMesh?.isEnabled() || false;
-
     return (
         <>
             <NumberDropdownPropertyLine
@@ -265,24 +261,11 @@ export const SceneRenderingProperties: FunctionComponent<{ scene: Scene; selecti
                 onChange={(value) => {
                     BackgroundTransparent = value;
                     const tempColor = scene.clearColor.clone();
-                    const renderCanvasDom = scene.getEngine().getRenderingCanvas();
 
                     if (BackgroundTransparent) {
                         scene.clearColor = new Color4(tempColor.r, tempColor.g, tempColor.b, 0);
-                        skyBoxMesh?.setEnabled(false);
-                        if (renderCanvasDom) {
-                            renderCanvasDom.style.background = "var(--background-transparent)";
-                        }
                     } else {
                         scene.clearColor = new Color4(tempColor.r, tempColor.g, tempColor.b, 1);
-                        if (skyBoxMesh) {
-                            skyBoxMesh.isVisible = skyBoxVisible;
-                            skyBoxMesh.setEnabled(skyBoxEnable);
-                        }
-
-                        if (renderCanvasDom) {
-                            renderCanvasDom.style.background = "";
-                        }
                     }
                 }}
             />
