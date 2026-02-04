@@ -20,11 +20,8 @@ import { Vector3PropertyLine } from "shared-ui-components/fluent/hoc/propertyLin
 import { MessageBar } from "shared-ui-components/fluent/primitives/messageBar";
 import { ButtonLine } from "shared-ui-components/fluent/hoc/buttonLine";
 import { Collapse } from "shared-ui-components/fluent/primitives/collapse";
-import { Color4 } from "core/Maths/math.color";
 
 let StoredEnvironmentTexture: Nullable<BaseTexture>;
-
-let BackgroundTransparent = false;
 
 export const SceneMaterialImageProcessingProperties: FunctionComponent<{ scene: Scene }> = (props) => {
     const { scene } = props;
@@ -254,21 +251,6 @@ export const SceneRenderingProperties: FunctionComponent<{ scene: Scene; selecti
             />
 
             <BoundProperty component={Color4PropertyLine} label="Clear Color" target={scene} propertyKey="clearColor" />
-
-            <SwitchPropertyLine
-                label="transparent"
-                value={BackgroundTransparent}
-                onChange={(value) => {
-                    BackgroundTransparent = value;
-                    const tempColor = scene.clearColor.clone();
-
-                    if (BackgroundTransparent) {
-                        scene.clearColor = new Color4(tempColor.r, tempColor.g, tempColor.b, 0);
-                    } else {
-                        scene.clearColor = new Color4(tempColor.r, tempColor.g, tempColor.b, 1);
-                    }
-                }}
-            />
 
             <BoundProperty component={SwitchPropertyLine} label="Clear Color Enabled" target={scene} propertyKey="autoClear" />
 

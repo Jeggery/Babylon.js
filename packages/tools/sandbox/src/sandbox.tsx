@@ -165,7 +165,7 @@ export class Sandbox extends React.Component<
 
             const canvasParentDom = document.getElementById("canvasZone");
             if (canvasParentDom) {
-                canvasParentDom.style.background = "repeating-conic-gradient(#d2d2d2 0% 25%, white 25% 50%) 50% / 20px 20px";
+                canvasParentDom.classList.add("checkerboard");
             }
 
             if (this._camera != undefined) {
